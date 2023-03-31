@@ -1,4 +1,4 @@
-name: deploy master
+name: deploy deployment
 on:
   push:
     branches:
@@ -34,20 +34,9 @@ jobs:
 
       - name: prepare the docker-compose run
         run: |
-              mkdir ghum-test-deploy-3 
-              cp docker-compose.yml ghum-test-deploy-3/docker-compose.yml 
-              cd ghum-test-deploy-3 
+              mkdir ghum-test-deploy-3-2
+              cp docker-compose-deploy.yml ghum-test-deploy-3-2/docker-compose-deploy.yml 
+              cd ghum-test-deploy-3-2 
               docker-compose -H ${{ secrets.HOST_SERVER }} down 
               docker-compose -H ${{ secrets.HOST_SERVER }} pull
               docker-compose -H ${{ secrets.HOST_SERVER }} up -d
-
-      # - name: copy file to server
-      #   uses: appleboy/scp-action@master
-      #   with:
-      #     host: ${{secrets.HOST}}
-      #     username: ${{secrets.SSH_USER_NAME}}
-      #     port: ${{secrets.SSH_PORT}}
-      #     key: ${{secrets.SSH_KEY}}
-      #     source: "./html/*"
-      #     target: "/var/www/html"
-      #     strip_components: 1
